@@ -1,5 +1,14 @@
-<%= link_to 'Previous page', page: ((@page - 1) < 1 ? 1 : (@page - 1)) %> | 
-<%= link_to 'Next page', page: (@statuses.length <= (@page * 25) + 1 ? (@page + 1) : @page) %>
+<% unless @page < 2 %>
+  <%= link_to 'Previous page', page: (@page - 1) %>
+<% end %>
+
+<% unless (@page < 2) || Status.total < (@page * 25) %>
+ | 
+<% end %>
+
+<% unless Status.total < (@page * 25) %>
+  <%= link_to 'Next page', page: (@page + 1) %>
+<% end %>
 
 <% @statuses.each do |s| %>
   <%= div_for s do %>
